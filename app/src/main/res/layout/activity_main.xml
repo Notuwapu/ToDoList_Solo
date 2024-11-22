@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kamu punya 50 tugas bulan ini!"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-medium"
         android:layout_below="@id/greeting_message"
@@ -42,13 +42,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/task_count"
         android:hint="Search a task"
+        android:background="@drawable/bg_searchbar"
         android:layout_marginTop="16dp"
-        android:background="@drawable/search_background"
         android:textColor="#FFFFFF"
         android:textColorHint="#888888"
         android:padding="12dp"
         android:drawableStart="@android:drawable/ic_search_category_default"
         android:drawablePadding="8dp" />
+
+
 
     <!-- To-Do and Done Buttons -->
     <LinearLayout
@@ -66,9 +68,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#03A9F4"
             android:text="To-Do"
-            android:background="@drawable/todo_button_background"
             android:textColor="#FFFFFF"
+            android:textSize="16sp"
             android:layout_marginEnd="8dp"
             android:padding="10dp" />
 
@@ -77,12 +80,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#4CAF50"
             android:text="Done"
-            android:background="@drawable/done_button_background"
             android:textColor="#FFFFFF"
+            android:textSize="16sp"
             android:layout_marginStart="8dp"
             android:padding="10dp" />
     </LinearLayout>
+
 
     <!-- Today's Task Title -->
     <TextView
@@ -100,16 +105,16 @@
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/todays_task_title"
-        android:layout_above="@id/footer"
         android:layout_marginTop="16dp">
 
         <LinearLayout
             android:id="@+id/task_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
             <!-- Example of a Task Item -->
             <LinearLayout
@@ -117,9 +122,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="12dp"
-                android:background="@drawable/task_item_background"
+                android:background="@drawable/bg_searchbar"
                 android:layout_marginBottom="8dp">
 
+                <!-- Task Title -->
                 <TextView
                     android:id="@+id/task_title"
                     android:layout_width="wrap_content"
@@ -128,23 +134,25 @@
                     android:textColor="#FFFFFF"
                     android:textSize="18sp" />
 
+                <!-- Task Description -->
                 <TextView
                     android:id="@+id/task_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    android:textColor="#BBBBBB"
+                    android:textColor="#FFFFFF"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp" />
 
+                <!-- Task Time -->
                 <TextView
                     android:id="@+id/task_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10:00 AM"
-                    android:textColor="#AAAAAA"
+                    android:textColor="#FFFFFF"
                     android:textSize="12sp"
-                    android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp" />
             </LinearLayout>
 
         </LinearLayout>
