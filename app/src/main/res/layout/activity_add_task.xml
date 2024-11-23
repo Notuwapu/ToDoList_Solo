@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".AddTaskActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_back"
+        android:contentDescription="Back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_marginStart="24dp"
+        app:layout_marginTop="24dp" />
+
+    <!-- Task Title Input -->
+    <EditText
+        android:id="@+id/editTextTaskTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Task Title"
+        android:background="@drawable/task_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Note Input -->
+    <EditText
+        android:id="@+id/editTextTaskNote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Note"
+        android:background="@drawable/task_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="100dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Date Picker Button -->
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:backgroundTint="#2A2A2A"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskNote"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/datePickerButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

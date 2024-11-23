@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#101010">
+    android:background="@drawable/background1">
 
     <!-- Back Button -->
     <ImageButton
@@ -34,6 +34,19 @@
         app:layout_marginTop="24dp" />
 
     <!-- Date Picker Button -->
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#2A2A2A"
+        android:fontFamily="sans-serif-medium"
+        android:text="Select Date"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        app:layout_marginTop="16dp"
+        tools:layout_editor_absoluteX="128dp" />
 
     <!-- Tasks List -->
     <ScrollView
@@ -79,19 +92,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/datePickerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#2A2A2A"
-        android:fontFamily="sans-serif-medium"
-        android:text="Select Date"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
-        app:layout_marginTop="16dp"
-        tools:layout_editor_absoluteX="128dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
