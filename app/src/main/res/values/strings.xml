@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">ProjekLabMobile</string>
+    <string name="app_name">ToDoList</string>
     <string name="task_title">Lorem Ipsum</string>
+    <string name="task_count_massage">Kamu punya %1$d tugas bulan ini!</string>
 </resources>

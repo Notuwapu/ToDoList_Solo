@@ -17,8 +17,8 @@
         android:contentDescription="Back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_marginStart="24dp"
-        app:layout_marginTop="24dp" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"/>
 
     <!-- Task Title Input -->
     <EditText

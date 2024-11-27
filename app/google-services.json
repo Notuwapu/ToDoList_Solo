@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "973203772285",
+    "project_id": "projeklabmobile",
+    "storage_bucket": "projeklabmobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973203772285:android:8a872b20d9e36dd0d4f214",
+        "android_client_info": {
+          "package_name": "com.example.projeklabmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_nRhy4U0NlfwjdTFiXLKR4n4lgbxTbPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
