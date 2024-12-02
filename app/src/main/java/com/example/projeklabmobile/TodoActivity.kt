@@ -24,36 +24,29 @@ class ToDoActivity : AppCompatActivity() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    private var selectedDate: String = ""  // Store the selected date for filtering tasks
+    private var selectedDate: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
 
-        // Set up RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         taskAdapter = TaskAdapter(tasks)
         recyclerView.adapter = taskAdapter
-
-        // Load tasks from Firestore when the activity is created
         loadTasks()
 
-        // Handle back button click using the new API
         findViewById<ImageButton>(R.id.backButton).setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()  // Use onBackPressedDispatcher
+            onBackPressedDispatcher.onBackPressed()
         }
 
-        // Handle add task button click
         findViewById<Button>(R.id.addTaskButton).setOnClickListener {
-            // Navigate to AddTaskActivity
             val intent = Intent(this, AddTaskActivity::class.java)
             startActivity(intent)
         }
 
-        // Handle DatePicker button click
         findViewById<Button>(R.id.datePickerButton).setOnClickListener {
-            showDatePickerDialog()  // Show DatePickerDialog
+            showDatePickerDialog()
         }
     }
 
@@ -67,11 +60,8 @@ class ToDoActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Format selected date as "dd-MM-yyyy"
                 selectedDate = "$selectedDay-${selectedMonth + 1}-$selectedYear"
-                // Update button text with the selected date
                 findViewById<Button>(R.id.datePickerButton).text = selectedDate
-                // Load tasks for the selected date
                 loadTasks(selectedDate)
             },
             year, month, day
@@ -82,12 +72,9 @@ class ToDoActivity : AppCompatActivity() {
     private fun loadTasks(selectedDate: String = "") {
         val user = auth.currentUser
         if (user != null) {
-            // Create Firestore query
             var query = firestore.collection("tasks").whereEqualTo("userId", user.uid)
 
-            // If a date is selected, filter tasks based on the selected date
             if (selectedDate.isNotEmpty()) {
-                // Ensure consistent date formatting
                 val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val formattedSelectedDate = try {
                     val date = dateFormat.parse(selectedDate)
@@ -97,7 +84,6 @@ class ToDoActivity : AppCompatActivity() {
                     null
                 }
 
-                // Apply filter based on formatted date
                 if (formattedSelectedDate != null) {
                     query = query.whereEqualTo("date", formattedSelectedDate)
                 } else {
@@ -118,12 +104,9 @@ class ToDoActivity : AppCompatActivity() {
                         newTasks.add(task)
                     }
 
-                    // Only update the list if the data has changed
                     if (newTasks.isNotEmpty()) {
-                        tasks.clear()  // Clear any existing tasks
-                        tasks.addAll(newTasks)  // Add the new tasks
-
-                        // Notify the adapter that the data has changed
+                        tasks.clear()
+                        tasks.addAll(newTasks)
                         taskAdapter.notifyDataSetChanged()
                     }
                 }

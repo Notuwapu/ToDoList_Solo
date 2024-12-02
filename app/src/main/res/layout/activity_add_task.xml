@@ -8,7 +8,6 @@
     android:background="@drawable/background1"
     tools:context=".AddTaskActivity">
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="40dp"
@@ -20,7 +19,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"/>
 
-    <!-- Task Title Input -->
     <EditText
         android:id="@+id/editTextTaskTitle"
         android:layout_width="0dp"
@@ -35,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Note Input -->
     <EditText
         android:id="@+id/editTextTaskNote"
         android:layout_width="0dp"
@@ -51,7 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Date Picker Button -->
     <Button
         android:id="@+id/datePickerButton"
         android:layout_width="0dp"
@@ -65,7 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Submit Button -->
     <Button
         android:id="@+id/submitButton"
         android:layout_width="0dp"

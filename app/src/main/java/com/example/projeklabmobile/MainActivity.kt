@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var taskCount: TaskCount // Menggunakan TaskCount untuk menghitung jumlah tugas
     private lateinit var todoButton: Button
     private lateinit var doneButton: Button
+    private lateinit var logoutButton: Button // Tambahkan tombol logout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         // Inisialisasi tombol-tombol
         todoButton = findViewById(R.id.btn_todo)
         doneButton = findViewById(R.id.btn_done)
+        logoutButton = findViewById(R.id.btn_logout) // Inisialisasi tombol logout
 
         // Menangani klik tombol "To-Do"
         todoButton.setOnClickListener {
@@ -44,6 +46,14 @@ class MainActivity : AppCompatActivity() {
         doneButton.setOnClickListener {
             val intent = Intent(this, DoneActivity::class.java)
             startActivity(intent)
+        }
+
+        // Menangani klik tombol "Logout"
+        logoutButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish() // Mengakhiri aktivitas saat ini
         }
     }
 }

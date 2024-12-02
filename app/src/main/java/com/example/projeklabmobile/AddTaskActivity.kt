@@ -22,24 +22,21 @@ class AddTaskActivity : AppCompatActivity() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    private var selectedDate: String = ""  // Store selected date here
+    private var selectedDate: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
 
-        // Initialize views
         titleEditText = findViewById(R.id.editTextTaskTitle)
         descriptionEditText = findViewById(R.id.editTextTaskNote)
         submitButton = findViewById(R.id.submitButton)
         datePickerButton = findViewById(R.id.datePickerButton)
 
-        // Date picker button
         datePickerButton.setOnClickListener {
             showDatePickerDialog()
         }
 
-        // Set onClickListener for Submit button
         submitButton.setOnClickListener {
             addTask()
         }
@@ -67,7 +64,6 @@ class AddTaskActivity : AppCompatActivity() {
         val title = titleEditText.text.toString().trim()
         val description = descriptionEditText.text.toString().trim()
 
-        // Validate input fields
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description) || selectedDate.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
@@ -75,10 +71,8 @@ class AddTaskActivity : AppCompatActivity() {
 
         val user = auth.currentUser
         if (user != null) {
-            // Get the current time when the task is created
             val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
 
-            // Store the task with the selected date and current time
             val task = TaskModel(
                 title = title,
                 description = description,
@@ -86,12 +80,11 @@ class AddTaskActivity : AppCompatActivity() {
                 userId = user.uid
             )
 
-            // Save the task to Firestore (without the unnecessary query)
             firestore.collection("tasks")
                 .add(task)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show()
-                    finish()  // Close the activity after saving the task
+                    finish()
                 }
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Error adding task: ${exception.message}", Toast.LENGTH_SHORT).show()

@@ -7,7 +7,6 @@
     android:padding="16dp"
     android:layout_marginBottom="12dp">
 
-    <!-- Task Title -->
     <TextView
         android:id="@+id/taskTitle"
         android:layout_width="wrap_content"
@@ -17,7 +16,6 @@
         android:textSize="16sp"
         android:fontFamily="sans-serif-medium"/>
 
-    <!-- Task Description -->
     <TextView
         android:id="@+id/taskDescription"
         android:layout_width="wrap_content"
@@ -27,7 +25,6 @@
         android:textSize="16sp"
         android:fontFamily="sans-serif-thin" />
 
-    <!-- Task Time -->
     <TextView
         android:id="@+id/taskTime"
         android:layout_width="wrap_content"

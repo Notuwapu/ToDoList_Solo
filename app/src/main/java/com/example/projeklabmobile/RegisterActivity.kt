@@ -27,17 +27,14 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Find Views
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput)
         registerButton = findViewById(R.id.registerButton)
         progressBar = findViewById(R.id.progressBar)
 
-        // Set the register button click listener
         registerButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -49,9 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Validate user input.
-     */
+
     private fun validateInput(email: String, password: String, confirmPassword: String): Boolean {
         if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Please fill all fields.", Toast.LENGTH_SHORT).show()
@@ -76,9 +71,6 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    /**
-     * Register the user with Firebase.
-     */
     private fun registerUser(email: String, password: String) {
         progressBar.visibility = View.VISIBLE
 
@@ -87,20 +79,15 @@ class RegisterActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
 
                 if (task.isSuccessful) {
-                    // User registered successfully
                     val user: FirebaseUser? = auth.currentUser
                     saveUserToDatabase(user)
                 } else {
-                    // If registration fails
                     val errorMessage = task.exception?.message ?: "Registration failed."
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-    /**
-     * Save the user data to Firebase Database after registration.
-     */
     private fun saveUserToDatabase(user: FirebaseUser?) {
         user?.let {
             val userId = it.uid
@@ -117,13 +104,11 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
 
-                        // Redirect to login activity
                         val intent = Intent(this, LoginActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
 
-                        // Close the current activity
-                        finish() // Close the Register activity
+                        finish()
                     } else {
                         val errorMessage = task.exception?.message ?: "Failed to save user data."
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()

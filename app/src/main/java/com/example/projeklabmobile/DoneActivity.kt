@@ -30,17 +30,14 @@ class DoneActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        // Initialize views
         backButton = findViewById(R.id.backButton)
         datePickerButton = findViewById(R.id.datePickerButton)
         scrollViewDone = findViewById(R.id.scrollviewdone)
 
-        // Back button logic
         backButton.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()  // Use the new back pressed method
+            onBackPressedDispatcher.onBackPressed()
         }
 
-        // Load completed tasks based on selected date
         datePickerButton.setOnClickListener {
             showDatePickerDialog()
         }
@@ -73,15 +70,13 @@ class DoneActivity : AppCompatActivity() {
                 .whereEqualTo("userId", user.uid)
                 .get()
                 .addOnSuccessListener { result ->
-                    scrollViewDone.removeAllViews()  // Clear previous tasks
+                    scrollViewDone.removeAllViews()
 
                     for (document in result) {
                         val task = document.toObject(TaskModel::class.java)
                         val taskDateTime = task.time
 
-                        // Check if the task time is before or equal to the current time
                         if (isTaskDone(taskDateTime, currentTime)) {
-                            // Create a view for each completed task
                             val taskView = createTaskView(task)
                             scrollViewDone.addView(taskView)
                         }
@@ -98,7 +93,6 @@ class DoneActivity : AppCompatActivity() {
     }
 
     private fun isTaskDone(taskDateTime: String, currentTime: String): Boolean {
-        // Compare task's due date and time with the current time
         val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
         val taskDate = sdf.parse(taskDateTime)
         val currentDate = sdf.parse(currentTime)
