@@ -54,17 +54,17 @@ class DoneActivity : AppCompatActivity() {
             { _, selectedYear, selectedMonth, selectedDay ->
                 val selectedDate = "$selectedDay-${selectedMonth + 1}-$selectedYear"
                 datePickerButton.text = selectedDate
-                loadCompletedTasks()
+                loadCompletedTasks(selectedDate)
             },
             year, month, day
         )
         datePickerDialog.show()
     }
 
-    private fun loadCompletedTasks() {
+    private fun loadCompletedTasks(selectedDate: String = "") {
         val user = auth.currentUser
         if (user != null) {
-            val currentTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
+            val currentTime = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
             firestore.collection("tasks")
                 .whereEqualTo("userId", user.uid)
@@ -74,9 +74,9 @@ class DoneActivity : AppCompatActivity() {
 
                     for (document in result) {
                         val task = document.toObject(TaskModel::class.java)
-                        val taskDateTime = task.time
+                        val taskDate = task.date
 
-                        if (isTaskDone(taskDateTime, currentTime)) {
+                        if (isTaskDone(taskDate, currentTime, selectedDate)) {
                             val taskView = createTaskView(task)
                             scrollViewDone.addView(taskView)
                         }
@@ -92,12 +92,14 @@ class DoneActivity : AppCompatActivity() {
         }
     }
 
-    private fun isTaskDone(taskDateTime: String, currentTime: String): Boolean {
-        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-        val taskDate = sdf.parse(taskDateTime)
-        val currentDate = sdf.parse(currentTime)
+    private fun isTaskDone(taskDate: String, currentTime: String, selectedDate: String): Boolean {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val taskDateParsed = dateFormat.parse(taskDate)
+        val currentDateParsed = dateFormat.parse(currentTime)
+        val selectedDateParsed = if (selectedDate.isNotEmpty()) dateFormat.parse(selectedDate) else null
 
-        return taskDate != null && taskDate <= currentDate
+        return taskDateParsed != null && taskDateParsed <= currentDateParsed &&
+                (selectedDateParsed == null || taskDateParsed == selectedDateParsed)
     }
 
     private fun createTaskView(task: TaskModel): LinearLayout {
@@ -118,7 +120,7 @@ class DoneActivity : AppCompatActivity() {
         descriptionTextView.textSize = 14f
 
         val timeTextView = TextView(this)
-        timeTextView.text = task.time
+        timeTextView.text = task.date
         timeTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
         timeTextView.textSize = 12f
 

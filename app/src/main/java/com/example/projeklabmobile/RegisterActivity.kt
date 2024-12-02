@@ -46,7 +46,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
     private fun validateInput(email: String, password: String, confirmPassword: String): Boolean {
         if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Please fill all fields.", Toast.LENGTH_SHORT).show()
@@ -80,12 +79,21 @@ class RegisterActivity : AppCompatActivity() {
 
                 if (task.isSuccessful) {
                     val user: FirebaseUser? = auth.currentUser
+                    Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show()
                     saveUserToDatabase(user)
+                    navigateToLogin()
                 } else {
                     val errorMessage = task.exception?.message ?: "Registration failed."
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun saveUserToDatabase(user: FirebaseUser?) {
@@ -102,13 +110,7 @@ class RegisterActivity : AppCompatActivity() {
             userRef.setValue(userInfo)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(this, LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-
-                        finish()
+                        Toast.makeText(this, "User data saved to database.", Toast.LENGTH_SHORT).show()
                     } else {
                         val errorMessage = task.exception?.message ?: "Failed to save user data."
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()

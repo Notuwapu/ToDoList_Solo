@@ -34,6 +34,7 @@ class ToDoActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         taskAdapter = TaskAdapter(tasks)
         recyclerView.adapter = taskAdapter
+
         loadTasks()
 
         findViewById<ImageButton>(R.id.backButton).setOnClickListener {
@@ -56,7 +57,6 @@ class ToDoActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create DatePickerDialog
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
@@ -75,18 +75,14 @@ class ToDoActivity : AppCompatActivity() {
             var query = firestore.collection("tasks").whereEqualTo("userId", user.uid)
 
             if (selectedDate.isNotEmpty()) {
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                val formattedSelectedDate = try {
-                    val date = dateFormat.parse(selectedDate)
-                    date?.let { dateFormat.format(it) }
+                try {
+                    val dateFormat = SimpleDateFormat("d-M-yyyy", Locale.getDefault())
+                    val parsedDate = dateFormat.parse(selectedDate)
+                    val formattedSelectedDate = dateFormat.format(parsedDate ?: "")
+                    Log.d("ToDoActivity", "Formatted selected date: $formattedSelectedDate")
+                    query = query.whereEqualTo("date", formattedSelectedDate)
                 } catch (e: Exception) {
                     Log.e("ToDoActivity", "Error parsing date: $selectedDate", e)
-                    null
-                }
-
-                if (formattedSelectedDate != null) {
-                    query = query.whereEqualTo("date", formattedSelectedDate)
-                } else {
                     Toast.makeText(this, "Invalid date format", Toast.LENGTH_SHORT).show()
                     return
                 }
@@ -94,21 +90,18 @@ class ToDoActivity : AppCompatActivity() {
 
             query.get()
                 .addOnSuccessListener { result ->
+                    tasks.clear()
                     if (result.isEmpty) {
                         Toast.makeText(this, "No tasks found for this date", Toast.LENGTH_SHORT).show()
+                    } else {
+                        for (document in result) {
+                            val task = document.toObject(TaskModel::class.java)
+                            Log.d("ToDoActivity", "Loaded task: ${document.data}")
+                            tasks.add(task)
+                        }
                     }
 
-                    val newTasks = mutableListOf<TaskModel>()
-                    for (document in result) {
-                        val task = document.toObject(TaskModel::class.java)
-                        newTasks.add(task)
-                    }
-
-                    if (newTasks.isNotEmpty()) {
-                        tasks.clear()
-                        tasks.addAll(newTasks)
-                        taskAdapter.notifyDataSetChanged()
-                    }
+                    taskAdapter.notifyDataSetChanged()
                 }
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Error loading tasks: ${exception.message}", Toast.LENGTH_SHORT).show()

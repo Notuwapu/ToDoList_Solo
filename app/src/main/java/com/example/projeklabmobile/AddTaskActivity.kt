@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity() {
@@ -63,7 +62,6 @@ class AddTaskActivity : AppCompatActivity() {
     private fun addTask() {
         val title = titleEditText.text.toString().trim()
         val description = descriptionEditText.text.toString().trim()
-
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description) || selectedDate.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
@@ -71,12 +69,10 @@ class AddTaskActivity : AppCompatActivity() {
 
         val user = auth.currentUser
         if (user != null) {
-            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-
             val task = TaskModel(
                 title = title,
                 description = description,
-                time = "$selectedDate $time",
+                date = selectedDate,
                 userId = user.uid
             )
 

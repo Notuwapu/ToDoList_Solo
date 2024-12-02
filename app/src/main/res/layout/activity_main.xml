@@ -3,22 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/background1"
     android:padding="16dp">
 
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/background1" />
 
     <!-- Greeting and Task Count -->
     <TextView
         android:id="@+id/greeting_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selamat Pagi, Praw!"
+        android:text="Loading..."
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif"

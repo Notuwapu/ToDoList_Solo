@@ -2,4 +2,8 @@
     <string name="app_name">ToDoList</string>
     <string name="task_title">Lorem Ipsum</string>
     <string name="task_count_massage">Kamu punya %1$d tugas bulan ini!</string>
+    <string name="greeting_message">Hallo, %1$s</string>
+    <string name="task_count_message">You have %1$d tasks this month</string>
+    <string name="no_tasks_message">No tasks for today.</string>
+    <string name="email_not_available">Email not available</string>
 </resources>

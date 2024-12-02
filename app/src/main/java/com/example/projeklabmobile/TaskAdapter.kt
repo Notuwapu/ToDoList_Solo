@@ -17,7 +17,7 @@ class TaskAdapter(private val tasks: List<TaskModel>) : RecyclerView.Adapter<Tas
         val task = tasks[position]
         holder.titleTextView.text = task.title
         holder.descriptionTextView.text = task.description
-        holder.timeTextView.text = task.time
+        holder.timeTextView.text = task.date
     }
 
     override fun getItemCount() = tasks.size
