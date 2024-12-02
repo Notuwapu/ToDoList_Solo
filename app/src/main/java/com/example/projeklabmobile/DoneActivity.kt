@@ -61,7 +61,7 @@ class DoneActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun loadCompletedTasks(selectedDate: String = "") {
+    private fun loadCompletedTasks(selectedDate: String) {
         val user = auth.currentUser
         if (user != null) {
             val currentTime = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
@@ -72,6 +72,7 @@ class DoneActivity : AppCompatActivity() {
                 .addOnSuccessListener { result ->
                     scrollViewDone.removeAllViews()
 
+                    var taskFound = false
                     for (document in result) {
                         val task = document.toObject(TaskModel::class.java)
                         val taskDate = task.date
@@ -79,10 +80,11 @@ class DoneActivity : AppCompatActivity() {
                         if (isTaskDone(taskDate, currentTime, selectedDate)) {
                             val taskView = createTaskView(task)
                             scrollViewDone.addView(taskView)
+                            taskFound = true
                         }
                     }
 
-                    if (scrollViewDone.childCount == 0) {
+                    if (!taskFound) {
                         Toast.makeText(this, "No completed tasks found.", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -96,10 +98,10 @@ class DoneActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val taskDateParsed = dateFormat.parse(taskDate)
         val currentDateParsed = dateFormat.parse(currentTime)
-        val selectedDateParsed = if (selectedDate.isNotEmpty()) dateFormat.parse(selectedDate) else null
+        val selectedDateParsed = dateFormat.parse(selectedDate)
 
         return taskDateParsed != null && taskDateParsed <= currentDateParsed &&
-                (selectedDateParsed == null || taskDateParsed == selectedDateParsed)
+                taskDateParsed == selectedDateParsed
     }
 
     private fun createTaskView(task: TaskModel): LinearLayout {

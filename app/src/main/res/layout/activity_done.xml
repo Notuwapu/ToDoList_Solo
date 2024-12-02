@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +7,6 @@
     android:background="@drawable/background1"
     tools:context=".DoneActivity">
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="40dp"
@@ -20,7 +18,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp" />
 
-    <!-- Date Picker Button -->
+
     <Button
         android:id="@+id/datePickerButton"
         android:layout_width="wrap_content"
@@ -35,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Done Tasks List -->
+
     <ScrollView
         android:id="@+id/scrollviewdone"
         android:layout_width="0dp"
@@ -50,42 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <!-- Example of a Done Task Item -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/task_background">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Task Completed"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="This is a description of a completed task. Aenean non efficitur magna. Sed consequat mollis nunc, a varius lectus cursus sit amet."
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-thin"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10:00 AM"
-                    android:textColor="#AAAAAA"
-                    android:textSize="14sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
