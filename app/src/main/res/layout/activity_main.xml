@@ -7,8 +7,6 @@
     android:padding="16dp">
 
 
-
-    <!-- Greeting and Task Count -->
     <TextView
         android:id="@+id/greeting_message"
         android:layout_width="wrap_content"
@@ -44,30 +42,13 @@
         android:layout_below="@id/greeting_message"
         android:layout_marginTop="8dp" />
 
-    <!-- Search Bar -->
-    <EditText
-        android:id="@+id/search_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/task_count"
-        android:hint="Search a task"
-        android:background="@drawable/bg_searchbar"
-        android:layout_marginTop="16dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888"
-        android:padding="12dp"
-        android:drawableStart="@android:drawable/ic_search_category_default"
-        android:drawablePadding="8dp" />
 
-
-
-    <!-- To-Do and Done Buttons -->
     <LinearLayout
         android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/search_task"
+        android:layout_below="@id/task_count"
         android:layout_marginTop="20dp"
         android:weightSum="2"
         android:gravity="center">
